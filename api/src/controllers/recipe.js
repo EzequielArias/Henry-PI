@@ -1,6 +1,7 @@
 const axios = require("axios")
 require('dotenv').config()
 const { Recipe } = require('../db.js')
+const { v4 } = require('uuid')
 let key = process.env.API_KEY
 
 const getRecipes =  async (req, res) => {
@@ -41,6 +42,7 @@ const createRecipe = async (req, res) => {
             } = req.body;
 
         await Recipe.create({
+            id : v4(),
             name,
             shortDescription,
             healthScore,
