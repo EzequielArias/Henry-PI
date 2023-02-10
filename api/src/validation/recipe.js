@@ -16,7 +16,7 @@ let validateCreate = [
     .isNumeric({no_symbols : true})
     .exists()
     .custom((healthScore, {req}) => {
-        if(healthScore > 10 || healthScore < 1){
+        if(healthScore > 100 || healthScore < 1){
             throw new Error("El healthScore solo pueden ser numeros del 1 al 10")
         }else{
             return true

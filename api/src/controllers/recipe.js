@@ -1,6 +1,6 @@
 const axios = require("axios")
 require('dotenv').config()
-const { Recipe } = require('../db.js')
+const { Recipe, Diet } = require('../db.js')
 const { v4 } = require('uuid')
 let key = process.env.API_KEY
 
@@ -30,6 +30,7 @@ const getRecipeDetail = async (req, res) => {
     } catch (err) {
         throw new Error(err)
     }
+    
 }
 
 const createRecipe = async (req, res) => {
@@ -46,9 +47,13 @@ const createRecipe = async (req, res) => {
             name,
             shortDescription,
             healthScore,
-            formula
+            formula,
+            diets : [{id : v4(), name : "polloRostizado"}]
+        },{
+            include : "diets"
         })
 
+        
         res.status(200).send("La receta se guardo con exito")
     } catch (err) {
         throw new Error(err)
