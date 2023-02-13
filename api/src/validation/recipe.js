@@ -17,7 +17,7 @@ let validateCreate = [
     .exists()
     .custom((healthScore, {req}) => {
         if(healthScore > 100 || healthScore < 1){
-            throw new Error("El healthScore solo pueden ser numeros del 1 al 10")
+            throw new Error("El healthScore solo pueden ser numeros del 1 al 100")
         }else{
             return true
         }
