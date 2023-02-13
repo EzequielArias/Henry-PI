@@ -1,13 +1,13 @@
 const express = require("express")
 const router = express.Router();
 
-const { getRecipes, getRecipeDetail, createRecipe } = require('../controllers/recipe')
+const { getRecipeDetail, createRecipe, getRecipeByName} = require('../controllers/recipe')
 const { validateCreate } = require('../validation/recipe')
 
-router.get('/', getRecipes)
+router.get('/', getRecipeByName)
 
 router.get('/:id',getRecipeDetail)
 
-router.post('/recipes',validateCreate,createRecipe)
+router.post('/',validateCreate,createRecipe)
 
 module.exports = router;

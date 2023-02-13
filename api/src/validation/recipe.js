@@ -7,7 +7,7 @@ let validateCreate = [
     .exists()
     .isLength({max : 20}),
 
-    check("shortDescription")
+    check("summary")
     .isString()
     .exists()
     .isLength({min : 10, max : 200}),
@@ -23,10 +23,9 @@ let validateCreate = [
         }
     }),
     
-    check("formula")
+    check("analyzedInstructions")
     .exists()
-    .isString()
-    .isLength({min : 20 , max : 300}),
+    .isArray(),
 
     (req, res, next) => {
         return validateResult(req, res, next)

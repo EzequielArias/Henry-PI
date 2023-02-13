@@ -3,30 +3,46 @@ require('dotenv').config()
 const { Recipe, Diet } = require('../db.js')
 const { v4 } = require('uuid')
 let key = process.env.API_KEY
+const array = require('../../../test.js')
+
 
 const getRecipes =  async (req, res) => {
+    
+    let Api_Result = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${key}&number=100&addRecipeInformation=true`)
 
-    let { query } = req.query;
-    try {
+        let cleanData = Api_Result.data.results.map(el => {
+            return {
+            id : el.id,
+            title : el.title,
+            name : el.title,
+            summary : el.summary,
+            healthScore : el.healthScore,
+            diets : el.diets,
+            analyzedInstructions : el.analyzedInstructions
+            }
+        })
 
-        let result = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${key}&query=${query}`)
+    let Db_result = await Recipe.findAll({
+        include : [{
+            model: Diet,
+            attributes: ['name'],
+            through: {
+                attributes: []
+            }
+        }]
+    })
 
-        result.data.results.length === 0 
-        ? res.status(404).send("No se encontraron recetas con eso")
-        : res.status(200).send(result.data)    
-        
-    } catch(err){
-        throw new Error(err)
-    }
+    let data = [ ...Db_result,...cleanData]
+    return data
 }
 
 const getRecipeDetail = async (req, res) => {
     let { id } = req.params;
+    let data = await getRecipes()
 
     try {
-        let result = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${key}`)
-        res.status(200).send(result.data)
-
+        let filtered = data.filter(item => item.id === String(id) || item.id == Number(id))
+        filtered.length ? res.status(200).json(filtered) : res.status(404).send('Recipe not found')
     } catch (err) {
         throw new Error(err)
     }
@@ -37,18 +53,19 @@ const createRecipe = async (req, res) => {
     try {
         let {
             name,
-            shortDescription,
+            summary,
             healthScore,
-            formula 
+            analyzedInstructions,
+            dietArr
             } = req.body;
 
         await Recipe.create({
             id : v4(),
             name,
-            shortDescription,
+            summary,
             healthScore,
-            formula,
-            diets : [{id : v4(), name : "polloRostizado"}]
+            analyzedInstructions,
+            diets : [{id : v4(), name : dietArr}]
         },{
             include : "diets"
         })
@@ -60,4 +77,24 @@ const createRecipe = async (req, res) => {
     }
 }
 
-module.exports = { getRecipes, getRecipeDetail, createRecipe }
+const getRecipeByName = async (req, res) => {
+    let { name } = req.query;
+
+    let data = await getRecipes()
+
+    if(!name) return res.status(200).json(data)
+
+    try {
+        let searchIt = data.filter(el => 
+        el.name.toLowerCase().includes(name.toLowerCase()))
+        
+        searchIt.length > 0 ? res.status(200).json(searchIt) : res.status(404).send("No se encontro la receta")
+
+    } catch (err) {
+
+        throw new Error(err)
+
+    }
+}
+
+module.exports = { getRecipes, getRecipeDetail, createRecipe, getRecipeByName }

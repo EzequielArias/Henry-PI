@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    shortDescription : {
+    summary : {
       type : DataTypes.STRING,
       allowNull : false
     },
@@ -22,8 +22,8 @@ module.exports = (sequelize) => {
       type : DataTypes.INTEGER,
       allowNull: false
     },
-    formula : {
-      type : DataTypes.STRING,
+    analyzedInstructions : {
+      type : DataTypes.ARRAY(DataTypes.STRING),
       allowNull : false
     }
   });
