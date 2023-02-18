@@ -1,4 +1,4 @@
-# fly.toml file generated for foodapi on 2023-02-07T18:51:02-03:00
+# fly.toml file generated for foodapi on 2023-02-13T04:51:06-03:00
 
 app = "foodapi"
 kill_signal = "SIGINT"

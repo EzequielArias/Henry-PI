@@ -1,12 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Card = () => {
+const Card = ({id,name,image,healthScore}) => {
+  console.log("llego llego llego")
   return (
-    <>
-      <ul>
-        <li></li>
-      </ul>
-    </>
+    <div style={{height : "100px"}}>
+      <Link to={`/${id}`}/>
+      <p>{healthScore}</p>
+      <p>{name}</p>
+      <img src={image} alt='etc'/>
+    </div>
   )
 }
 

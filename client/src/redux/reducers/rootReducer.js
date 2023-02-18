@@ -1,16 +1,21 @@
 import React from 'react'
+import { GET_ALL_RECIPES } from '../action-type/index'
 
+const initialState = {
+  recipes : []
+}
 
+const rootReducer = (state = initialState, {type, payload}) => {
 
-const rootReducer = (state = initialState, action) => {
-
-  switch (action.type) {
-    case 'GET_ALL_RECIPES':
-        
-        break;
-  
+  switch (type) {
+    case GET_ALL_RECIPES:
+        return {
+          ...state,
+          recipes : state.recipes = payload
+        }
     default:
-        break;
+      return state
+        
   }
 }
 

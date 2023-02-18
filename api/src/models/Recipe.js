@@ -25,6 +25,10 @@ module.exports = (sequelize) => {
     analyzedInstructions : {
       type : DataTypes.ARRAY(DataTypes.STRING),
       allowNull : false
+    },
+    image : {
+      type : DataTypes.STRING,
+      allowNull : true
     }
   });
 };
