@@ -1,4 +1,5 @@
 import React from 'react'
+import './Pagination.css'
 
 const Pagination = ({totalPosts, postsPerPage, setCurrentPage}) => {
     let pages = []
@@ -8,12 +9,12 @@ const Pagination = ({totalPosts, postsPerPage, setCurrentPage}) => {
     }
 
   return (
-    <div>
-      {
-        pages.map((page, index) => {
-            return <button key={index} onClick={() => setCurrentPage(page)}>{page}</button>
-        })
-      }
+    <div className='Pagination-container'>
+        {
+          pages.map((page, index) => {
+              return <button key={index} onClick={() => setCurrentPage(page)}>{page}</button>
+          })
+        }
     </div>
   )
 }

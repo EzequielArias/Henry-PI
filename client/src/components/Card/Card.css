@@ -1,0 +1,13 @@
+.Home-card{
+    display: flex;
+    flex-direction: row;
+
+    flex-wrap: wrap;
+}
+
+.Card-container {
+    margin: 5px 5px 5px 5px;
+    border : 2px solid black;
+    width: 30%;
+
+}

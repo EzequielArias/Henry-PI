@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL_RECIPES, GET_RECIPES_BY_NAME } from '../action-type'
+import { GET_ALL_RECIPES, GET_RECIPES_BY_NAME, ORDER_BY_HS,ORDER_BY_AZ, SEARCH_BY_NAME } from '../action-type'
 
 
 export const getRecipes = () => {
@@ -25,6 +25,37 @@ export const getRecipesByName = (name) => {
         return dispatch({
             type : GET_RECIPES_BY_NAME,
             payload : res.data
+        })
+    }
+}
+
+export const orderByHS = (value) => {
+
+    return async function(dispatch){
+
+        return dispatch({
+            type : ORDER_BY_HS,
+            payload : value
+        })
+    }
+}
+
+export const orderByAZ = (value) => {
+
+    return async function(dispatch){
+        return dispatch({
+            type : ORDER_BY_AZ,
+            payload : value
+        })
+    }
+}
+
+export const searchByName = (name) => {
+    return async function(dispatch){
+
+        return dispatch({
+            type : SEARCH_BY_NAME,
+            payload : name
         })
     }
 }
