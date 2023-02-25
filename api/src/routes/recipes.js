@@ -8,6 +8,6 @@ router.get('/', getRecipeByName)
 
 router.get('/:id',getRecipeDetail)
 
-router.post('/',validateCreate,createRecipe)
+router.post('/',createRecipe)
 
 module.exports = router;

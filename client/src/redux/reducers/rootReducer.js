@@ -1,15 +1,18 @@
 import React from "react";
 import {
   GET_ALL_RECIPES,
+  GET_RECIPE_BY_ID,
   ORDER_BY_AZ,
   ORDER_BY_HS,
   SEARCH_BY_NAME,
+  CREATE_RECIPE
 } from "../action-type/index";
 
 const initialState = {
   recipes: [],
   recipesFilter : [],
-  inputSearch : false
+  inputSearch : false,
+  detail : {}
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -89,6 +92,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       inputSearch : true
     }
 
+    case GET_RECIPE_BY_ID: 
+     return {
+        ...state,
+        detail : payload
+      }
+    case CREATE_RECIPE:
+      console.log(payload)
+      return
+      
     default:
       return state;
   }

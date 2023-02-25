@@ -6,7 +6,7 @@ const Card = ({id,name,image,healthScore}) => {
 
   return (
     <div className='Card-container'>
-      <Link to={`/${id}`}>
+      <Link to={`/home/:${id}`}>
       <img src={image} alt='etc'/>
       <p>{name}</p>
       <p>{healthScore}</p>

@@ -54,16 +54,18 @@ const createRecipe = async (req, res) => {
             summary,
             healthScore,
             analyzedInstructions,
-            dietArr
+            diets,
+            image
             } = req.body;
-
+            console.log(req.body)
         await Recipe.create({
             id : v4(),
             name,
-            summary,
-            healthScore,
+            summary,   
+            healthScore : !healthScore ? 80 : healthScore,
             analyzedInstructions,
-            diets : [{id : v4(), name : dietArr}]
+            image,
+            diets : [{id : v4(), name : diets}]
         },{
             include : "diets"
         })
