@@ -39,6 +39,7 @@ useEffect(() => {
                 name={el.name}
                 image={el.image}
                 healthScore={el.healthScore}
+                diets={el.diets}
                 />
               ))
           }

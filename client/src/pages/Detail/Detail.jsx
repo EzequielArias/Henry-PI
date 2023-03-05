@@ -24,7 +24,13 @@ const Detail = () => {
     <div>
         <p>{name}</p>
         <br/>
-        <p>{diets}</p>
+        <div>
+          {diets.map(el => {
+            return (
+              <p>{el}</p>
+            )
+          })}
+        </div>
         <br/>
         <span>{summary}</span>
         <br/>
